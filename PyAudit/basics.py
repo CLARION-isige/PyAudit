@@ -160,7 +160,7 @@ def freq_items_df(df_in, top_n=3):
         1     cat  [z, y, x, w]  [4, 3, 2, 1]
     """
     def freq_items(x):
-        temp = pd.value_counts(x)
+        temp = pd.Series(X).value_counts()
         top_items = temp.index[:top_n].values
         top_freqs = temp.values[:top_n]
         return top_items, top_freqs
@@ -290,7 +290,7 @@ def numeric_summary(df_in, output_dir, top_n=4, deciles=False):
         fea_std = f.std()
         fea_count = np.sqrt(f.count())
         fea_notnull = f.notnull().sum()
-        item_count = pd.value_counts(f)
+        item_count = pd.Series(f).value_counts()
         top_items = item_count.index[:top_n].values
         top_freqs = item_count.values[:top_n]
         return fea_len.min(),\
@@ -367,7 +367,7 @@ def category_summary(df_in, output_dir, top_n=4):
 
     def col_wise(f):
         fea_len = f.map(lambda x: len(str(x)))
-        item_count = pd.value_counts(f)
+        item_count = pd.Series(f).value_counts()
         top_items = item_count.index[:top_n].values
         top_freqs = item_count.values[:top_n]
         return fea_len.min(), \
